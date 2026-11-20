@@ -1,0 +1,17 @@
+{
+  "name": "han-xiongnu-pelicans",
+  "version": "4.0.0",
+  "private": true,
+  "description": "汉匈百年 · 十万鹈鹕来袭：历史戏仿代码动画（粗剪 v4）",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "sfx": "node sfx.mjs",
+    "frame": "node render-full.mjs --frames 0",
+    "keys": "node render-full.mjs --keys",
+    "check": "node render-full.mjs --check",
+    "video": "node render-full.mjs --video",
+    "render": "node render-full.mjs --all"
+  }
+}

@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>汉匈百年 · 十万鹈鹕来袭 · 四幕粗剪 v4</title><style>@font-face{font-family:"SJCQ";src:url("_fonts/SJcaoquanbei.ttf")}
+body{margin:0;background:#0b0808;color:#e9c69b;font-family:serif;display:flex;min-height:100vh;align-items:center;justify-content:center;flex-direction:column}canvas{width:min(100vw,177.77vh);height:auto;display:block}nav{display:flex;align-items:center;gap:12px;padding:12px;width:min(96vw,1200px)}button{background:#382019;border:1px solid #b17c53;color:#f0d2a9;padding:8px 18px;font:inherit;cursor:pointer}input{flex:1;accent-color:#d99c64}small{white-space:nowrap}body.export nav{display:none}</style>
+<canvas id="film" width="1920" height="1080"></canvas><nav><button id="play">播放（含音效草稿）</button><button id="again">重播</button><input id="scrub" type="range" min="0" step="0.01" value="0"><small id="clock"></small></nav>
+<audio id="sfx" src="汉匈百年_四幕粗剪_v4_音效草稿.wav" preload="auto"></audio>
+<script src="kit.js"></script><script src="glyphs_lishu.js"></script><script src="kit2.js"></script><script src="kit3.js"></script><script src="kit4.js"></script><script src="kit5.js"></script><script src="shots.js"></script>
+<script src="scenes/s0.js"></script><script src="scenes/s1.js"></script><script src="scenes/s2.js"></script><script src="scenes/s3.js"></script><script src="scenes/s4.js"></script><script src="scenes/s4b.js"></script><script src="scenes/s_end.js"></script>
+<script src="timeline.js"></script><script src="cover.js"></script>
+<script>
+const cv=document.getElementById('film'),g=cv.getContext('2d',{alpha:false}),sfx=document.getElementById('sfx'),btn=document.getElementById('play'),scrub=document.getElementById('scrub'),clock=document.getElementById('clock');scrub.max=DURATION;
+let playing=false,pos=0,t0=0;window.seek=t=>renderAt(g,t);
+function tick(){if(playing){pos=Math.min(DURATION,performance.now()/1000-t0);if(pos>=DURATION){playing=false;sfx.pause();btn.textContent='播放（含音效草稿）'}}renderAt(g,pos);scrub.value=pos;clock.textContent=pos.toFixed(1)+' / '+DURATION.toFixed(1)+' 秒  '+shotAt(pos).id;requestAnimationFrame(tick)}
+function start(){t0=performance.now()/1000-pos;playing=true;sfx.currentTime=pos;sfx.play().catch(()=>{});btn.textContent='暂停'}
+btn.onclick=()=>{if(playing){playing=false;sfx.pause();btn.textContent='播放（含音效草稿）'}else{if(pos>=DURATION)pos=0;start()}};
+document.getElementById('again').onclick=()=>{pos=0;start()};scrub.oninput=()=>{pos=+scrub.value;if(playing)start()};
+window.ready=document.fonts.load('48px "Noto Serif CJK SC"').catch(()=>{}).then(()=>document.fonts.load('48px "SJCQ"','汉匈百年十万鹈鹕来袭历史戏仿封燕然山铭').catch(()=>{})).then(()=>document.fonts.ready).then(()=>{if(location.search.includes('export'))document.body.classList.add('export');else requestAnimationFrame(tick);renderAt(g,0);return true});
+</script></html>

@@ -1,0 +1,22 @@
+# 用户自备字体。说明见 _fonts/README.md
+_fonts/*
+!_fonts/README.md
+
+# 字体、成片、音效不入库
+*.ttf
+*.otf
+*.ttc
+*.woff
+*.woff2
+*.mp4
+*.mov
+*.wav
+*.f32
+
+# 无头渲染的中间产物与封面导出
+qa/
+qa_*/
+/封面_*.png
+
+node_modules/
+.DS_Store
